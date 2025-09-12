@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <div class="flex">
+    <div class="flex-1">
+      <h1 class=" py-2">{{ .Title }}</h1>
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format ":date_long" }}
+      <time datetime="{{ $dateMachine }}" class="block mb-4">{{ $dateHuman }}</time>
+      {{ .Content }}
+      <div class="mt-6">
+        {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+      </div>
+    </div>
+    {{ $toc := .TableOfContents }}
+    {{ if and $toc (ne $toc "<nav id=\"TableOfContents\"></nav>") }}
+    <div class="w-64 ml-10 toc-container">
+      <h4 class="mb-4">⋅˚₊‧ ୨ on this page ୧ ‧₊˚ ⋅</h4>
+      {{ $toc }}
+    </div>
+    {{ end }}
+  </div>
+{{ end }}

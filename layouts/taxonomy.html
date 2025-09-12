@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <h1>⋅˚₊‧ ୨ {{ lower .Title }} ୧ ‧₊˚ ⋅</h1>
+  {{ .Content }}
+  {{ range .Pages }}
+    <h2><a href="{{ .RelPermalink }}">{{ lower .LinkTitle }}</a></h2>
+  {{ end }}
+{{ end }}

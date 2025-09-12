@@ -1,0 +1,61 @@
+{{ define "main" }}
+  <div class="mx-auto w-full max-w-4xl px-4 py-6">
+    <h1 class="py-2">⋅˚₊‧ ୨ {{ lower .Title }} tag ୧ ‧₊˚ ⋅</h1>
+
+    {{ $posts := sort .Pages "Date" "desc" }}
+
+    {{ if $posts }}
+      <div class="grid gap-6 mt-8">
+        {{ range $posts }}
+          {{/* determine icon from params (listIcon preferred), allow keyword or explicit path */}}
+          {{ $icon := "" }}
+          {{ with .Params.listIcon }}
+            {{ $val := . }}
+            {{ if or (eq $val "contribute") (eq $val "writing") }}
+              {{ if eq $val "contribute" }}{{ $icon = "/contribute.png" }}{{ end }}
+              {{ if eq $val "writing" }}{{ $icon = "/writing.png" }}{{ end }}
+            {{ else }}
+              {{ $icon = $val }}
+            {{ end }}
+          {{ else }}
+            {{ with .Params.icon }}
+              {{ $val := . }}
+              {{ if or (eq $val "contribute") (eq $val "writing") }}
+                {{ if eq $val "contribute" }}{{ $icon = "/contribute.png" }}{{ end }}
+                {{ if eq $val "writing" }}{{ $icon = "/writing.png" }}{{ end }}
+              {{ else }}
+                {{ $icon = $val }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{ if eq $icon "" }}
+            {{ if in .Params.tags "open-source" }}{{ $icon = "/contribute.png" }}{{ end }}
+            {{ if in .Params.tags "write" }}{{ $icon = "/writing.png" }}{{ end }}
+          {{ end }}
+
+          {{/* teaser text preference */}}
+          {{ $teaser := .Params.teaser }}
+          {{ if not $teaser }}{{ $teaser = .Params.description }}{{ end }}
+          {{ if not $teaser }}{{ $teaser = .Summary }}{{ end }}
+
+          <a href="{{ .RelPermalink }}" class="block">
+            <article class="not-prose flex cursor-pointer flex-col space-y-4 rounded-lg border border-transparent p-6 transition-all duration-150 hover:border-white">
+              <h2 class="text-xl font-semibold">
+                <span class="text-white flex items-center">
+                  {{ with $icon }}<img src="{{ . }}" alt="" class="mr-2">{{ end }}
+                  {{ .LinkTitle }}
+                </span>
+              </h2>
+              <ul class="pl-5">
+                <li><time class="text-sm text-gray-300">{{ .Date.Format "January 2, 2006" }}</time></li>
+                {{ with $teaser }}<li><em>{{ . | plainify | truncate 140 }}</em></li>{{ end }}
+              </ul>
+            </article>
+          </a>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p class="text-gray-400 mt-8">No posts found for this tag.</p>
+    {{ end }}
+  </div>
+{{ end }}

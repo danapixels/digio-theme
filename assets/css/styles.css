@@ -1,0 +1,157 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+html {
+  background-color: #111111;
+}
+
+body {
+  color: #ffffff;
+  font-family: 'Fira Code', monospace;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  font-size: 14px;
+}
+
+header {
+  margin-bottom: 1rem;
+}
+
+footer {
+  margin-top: 1rem;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h5 {
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h6 {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-top: 1px solid #333333;
+  background: none;
+}
+
+.toc-container {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .toc-container {
+    display: none;
+  }
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background-image: url('/checkbox.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-right: 4px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url('/checked.png');
+}
+
+ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+ul li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4em;
+  width: 8px;
+  height: 8px;
+  background-image: url('/sparkle.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* hides sparkle bullets for checkbox lists */
+ul li:has(input[type="checkbox"]) {
+  padding-left: 0;
+}
+
+ul li:has(input[type="checkbox"])::before {
+  display: none;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+nav ul li::before {
+  display: none;
+}

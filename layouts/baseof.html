@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <header>
+    {{ partial "header.html" . }}
+  </header>
+  <div class="flex justify-center">
+    <img src="/border-home1.png" alt="border-home1">
+  </div>
+  <main>
+    <div class="mx-auto w-full max-w-4xl px-4 py-6">
+    {{ block "main" . }}{{ end }}
+    </div>
+  </main>
+  {{ if or .IsHome (or (in (slice "post" "posts" "blog") .Type) (in (slice "posts" "blog") .Section)) }}
+  <div class="mx-auto w-full max-w-4xl px-4 py-2 mt-8">
+    <img src="/recent-work.png" alt="recent-work">
+  </div>
+  <div class="mx-auto w-full max-w-4xl px-4 py-4">
+    {{ $candidates := where site.RegularPages "Type" "in" (slice "posts" "post" "blog") }}
+    {{ $posts := first 2 (sort $candidates "Date" "desc") }}
+    {{ if lt (len $posts) 2 }}
+      {{ $posts = first 2 (sort site.RegularPages "Date" "desc") }}
+    {{ end }}
+    <div class="grid lg:grid-cols-2 gap-4">
+      {{ range $posts }}
+        <div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-6 transition-all duration-150 hover:border-pink-300">
+          <h3 class="font-semibold flex items-center gap-2">
+            {{ with .Params.listIcon }}<img src="{{ . }}" alt="">{{ end }}
+            {{ .LinkTitle }}
+          </h3>
+          {{ with .Params.teaser }}
+            <p><em>{{ . }}</em></p>
+          {{ else }}
+            {{ with .Params.description }}<p><em>{{ . }}</em></p>{{ else }}<p><em>{{ .Summary }}</em></p>{{ end }}
+          {{ end }}
+          <a href="{{ .RelPermalink }}" class="self-start text-sm text-white underline">Read more →</a>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+  <div class="flex justify-center">
+    <img src="/border-home1.png" alt="border-home1">
+  </div>
+  <footer>
+    {{ partial "footer.html" . }}
+  </footer>
+</body>
+</html>

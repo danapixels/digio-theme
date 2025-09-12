@@ -1,0 +1,15 @@
+name = "digio"
+license = "GPL 3.0"
+licenselink = "https://www.gnu.org/licenses/gpl-3.0.en.html"
+description = "A pixel, ASCII, and retro Hugo theme."
+
+homepage = "https://github.com/danapixels/digio-theme"
+
+demosite = "https://danablog.dev"
+
+tags = ["blog", "pixel", "minimal", "black", "personal", "simple", "retro",]
+features = ["post-icons", "scrolling-table-of-contents", "external-links-treated-as-posts",]
+
+[author]
+    name = "danapixels
+    homepage = "https://danablog.dev

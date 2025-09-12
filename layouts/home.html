@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{ $p := .Params }}
+<div class="grid lg:grid-cols-2 gap-4">
+	<div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-4">
+		<img src="{{ or $p.portraitImage "/portrait.png" }}" alt="Portrait" class="w-[423px] h-[192px]">
+		<div>
+			{{ with $p.introTitle }}<strong>{{ . }}</strong>{{ end }}
+			{{ with $p.introBody }}{{ . | markdownify }}{{ end }}
+		</div>
+	</div>
+	<div class="grid lg:grid-rows-2 gap-4">
+		<div class="not-prose flex cursor-default flex-col space-y-2 rounded-lg border border-white p-6">
+			<img src="{{ or $p.statusImage "/status.png" }}" alt="Status" class="self-start">
+			{{ with $p.statusText }}<div>{{ . | markdownify }}</div>{{ end }}
+		</div>
+		<div class="not-prose flex cursor-default flex-col space-y-2 rounded-lg border border-white p-6">
+			<img src="{{ or $p.watchingImage "/watching.png" }}" alt="Watching" class="self-start">
+			{{ if or $p.watchingUrl $p.watchingText }}
+				<p class="underline">
+					{{ if $p.watchingUrl }}<a href="{{ $p.watchingUrl }}">{{ end }}
+					{{ or $p.watchingText "" }}
+					{{ if $p.watchingUrl }}</a>{{ end }}
+				</p>
+			{{ end }}
+		</div>
+	</div>
+</div>
+{{ .Content }}
+{{ end }}

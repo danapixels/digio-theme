@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="mx-auto w-full max-w-4xl px-4 py-6 space-y-6">
+  <div class="flex justify-center">
+    <img src="/cats.png" alt="cats">
+  </div>
+
+  {{ $p := .Params }}
+  <div class="grid lg:grid-cols-3 gap-2">
+    <div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-4 transition-all duration-150">
+      <img src="/likes.png" alt="likes" class="w-[98px] h-[54px]">
+      <ul>
+        {{ range $p.likes }}
+          <li>{{ . | markdownify }}</li>
+        {{ end }}
+      </ul>
+    </div>
+    <div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-4 transition-all duration-150">
+      <img src="/dislikes.png" alt="dislikes" class="w-[98px] h-[54px]">
+      <ul>
+        {{ range $p.dislikes }}
+          <li>{{ . | markdownify }}</li>
+        {{ end }}
+      </ul>
+    </div>
+    <div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-4 transition-all duration-150">
+      <img src="/hobbies.png" alt="hobbies" class="w-[98px] h-[54px]">
+      <ul>
+        {{ range $p.hobbies }}
+          <li>{{ . | markdownify }}</li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <img src="/sonic.png" alt="sonic">
+  </div>
+
+  {{ .Content }}
+</div>
+{{ end }}

@@ -1,0 +1,105 @@
+{{ define "main" }}
+<div class="mx-auto w-full max-w-4xl px-4 py-6">
+  <h1 class="text-3xl font-bold mb-8">{{ .Title }}</h1>
+
+  {{ $tag := .Section }}
+  {{ $posts := where site.RegularPages "Params.tags" "intersect" (slice $tag) }}
+  {{ $posts = sort $posts "Date" "desc" }}
+
+  {{/* Get external links from front matter */}}
+  {{ $externalLinks := .Params.externalLinks }}
+
+  {{ $allItems := slice }}
+  
+  {{/* Add posts to items */}}
+  {{ range $posts }}
+    {{ $allItems = $allItems | append (dict "type" "post" "data" . "date" .Date "sortDate" .Date) }}
+  {{ end }}
+  
+  {{/* Add external links to items with proper date parsing */}}
+  {{ if $externalLinks }}
+    {{ range $externalLinks }}
+      {{/* Parse the date and format it properly */}}
+      {{ $parsedDate := time .date }}
+      {{ $displayDate := $parsedDate.Format "January 2, 2006" }}
+      {{ $allItems = $allItems | append (dict "type" "link" "data" . "date" $displayDate "sortDate" $parsedDate) }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort all items by sortDate (newest first) */}}
+  {{ $allItems = sort $allItems "sortDate" "desc" }}
+
+  {{ if $allItems }}
+    <div class="grid gap-6 mt-8">
+      {{ range $allItems }}
+        {{ if eq .type "post" }}
+          {{ $post := .data }}
+          {{/* determine icon from params (listIcon preferred), allow keyword or explicit path */}}
+          {{ $icon := "" }}
+          {{ with $post.Params.listIcon }}
+            {{ $val := . }}
+            {{ if or (eq $val "contribute") (eq $val "writing") }}
+              {{ if eq $val "contribute" }}{{ $icon = "/contribute.png" }}{{ end }}
+              {{ if eq $val "writing" }}{{ $icon = "/writing.png" }}{{ end }}
+            {{ else }}
+              {{ $icon = $val }}
+            {{ end }}
+          {{ else }}
+            {{ with $post.Params.icon }}
+              {{ $val := . }}
+              {{ if or (eq $val "contribute") (eq $val "writing") }}
+                {{ if eq $val "contribute" }}{{ $icon = "/contribute.png" }}{{ end }}
+                {{ if eq $val "writing" }}{{ $icon = "/writing.png" }}{{ end }}
+              {{ else }}
+                {{ $icon = $val }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{ if eq $icon "" }}
+            {{ if in $post.Params.tags "open-source" }}{{ $icon = "/contribute.png" }}{{ end }}
+            {{ if in $post.Params.tags "write" }}{{ $icon = "/writing.png" }}{{ end }}
+          {{ end }}
+
+          {{/* teaser text preference */}}
+          {{ $teaser := $post.Params.teaser }}
+          {{ if not $teaser }}{{ $teaser = $post.Params.description }}{{ end }}
+          {{ if not $teaser }}{{ $teaser = $post.Summary }}{{ end }}
+
+          <a href="{{ $post.RelPermalink }}" class="block">
+            <article class="not-prose flex cursor-pointer flex-col space-y-4 rounded-lg border border-transparent p-6 transition-all duration-150 hover:border-white">
+              <h2 class="text-xl font-semibold">
+                <span class="text-white flex items-center">
+                  {{ with $icon }}<img src="{{ . }}" alt="" class="mr-2">{{ end }}
+                  {{ $post.LinkTitle }}
+                </span>
+              </h2>
+              <ul class="pl-5">
+                <li><time class="text-sm text-gray-300">{{ $post.Date.Format "January 2, 2006" }}</time></li>
+                {{ with $teaser }}<li><em>{{ . | plainify | truncate 140 }}</em></li>{{ end }}
+              </ul>
+            </article>
+          </a>
+        {{ else if eq .type "link" }}
+          {{ $link := .data }}
+          <a href="{{ $link.url }}" target="_blank" rel="noopener noreferrer" class="block">
+            <article class="not-prose flex cursor-pointer flex-col space-y-4 rounded-lg border border-transparent p-6 transition-all duration-150 hover:border-white">
+              <h2 class="text-xl font-semibold">
+                <span class="text-white flex items-center">
+                  <img src="{{ $link.icon }}" alt="" class="mr-2">
+                  {{ $link.title }}
+                </span>
+              </h2>
+              <ul class="pl-5">
+                <li><time class="text-sm text-gray-300">{{ .date }}</time></li>
+                {{ with $link.teaser }}<li><em>{{ . | plainify | truncate 140 }}</em></li>{{ end }}
+              </ul>
+            </article>
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="text-gray-400 mt-8">No posts or links found.</p>
+  {{ end }}
+</div>
+{{ end }}
