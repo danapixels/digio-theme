@@ -2,13 +2,13 @@
 ### A pixel, ASCII, minimal, retro theme for [Hugo](https://gohugo.io/).
 
 #### Home page
-![screenshot](/images/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/danapixels/digio-theme/main/images/screenshot.png)
 
 ### Sections
-![sections](/images/digio-section.png)
+![sections](https://raw.githubusercontent.com/danapixels/digio-theme/main/images/digio-section.png)
 
 ### Posts
-![post](/images/digio-page.png)
+![post](https://raw.githubusercontent.com/danapixels/digio-theme/main/images/digio-page.png)
 
 ## Demo site
 To see how this theme works, view my current [blog](https://danablog.dev).
@@ -155,7 +155,6 @@ teaser = "Some flavor text here..."
 externalLinks = [
   { title = "external example", url = "https://gohugo.io/", date = "2025-04-17", icon = "/contribute.png", teaser = "Teaser for your external link" },
 ]
-
 ```
 
 ## License
