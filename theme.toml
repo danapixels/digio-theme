@@ -11,5 +11,5 @@ tags = ["blog", "pixel", "minimal", "black", "personal", "simple", "retro",]
 features = ["post-icons", "scrolling-table-of-contents", "external-links-treated-as-posts",]
 
 [author]
-    name = "danapixels
-    homepage = "https://danablog.dev
+    name = "danapixels"
+    homepage = "https://danablog.dev"
