@@ -26,16 +26,15 @@ To use `digio-theme` you need to install Hugo Extended by following [https://goh
 # Installing Tailwind
 
 ```
-# Install Tailwind
-npm install tailwind postcss autoprefixer
+# Install dependencies
+npm install
 
-# Useful script for later will compile tailwind into CSS once, good for production
+# Compile Tailwind into CSS once — good for production
 npm run build
 
-# Useful script for later will continuously compile tailwind into CSS, good for development
+# Continuously compile Tailwind into CSS on file changes — good for development
 npm run watch
 ```
-*The scripts referenced were taken from this video from the [Hugo Conference](https://www.youtube.com/watch?v=0WJ2lWNhqm8).*
 
 # Create a site and cd into it
 ```
@@ -43,7 +42,19 @@ hugo new site <your website's name>
 cd <your website's name>
 ```
 
-# Clone theme into your themes folder
+# Add the theme
+
+### Option A: Git submodule (recommended — makes updating the theme easier)
+```
+git submodule add https://github.com/danapixels/digio-theme themes/digio-theme
+```
+
+To update the theme later:
+```
+git submodule update --remote
+```
+
+### Option B: Clone
 ```
 mkdir themes
 cd themes

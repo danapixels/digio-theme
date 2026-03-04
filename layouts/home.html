@@ -2,7 +2,7 @@
 {{ $p := .Params }}
 <div class="grid lg:grid-cols-2 gap-4">
 	<div class="not-prose flex cursor-default flex-col space-y-4 rounded-lg border border-white p-4">
-		<img src="{{ or $p.portraitImage "/portrait.png" }}" alt="Portrait" class="w-[423px] h-[192px]">
+		<img src="{{ or $p.portraitImage "/portrait.png" }}" alt="Portrait" class="w-full h-auto">
 		<div>
 			{{ with $p.introTitle }}<strong>{{ . }}</strong>{{ end }}
 			{{ with $p.introBody }}{{ . | markdownify }}{{ end }}

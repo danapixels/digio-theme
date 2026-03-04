@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss";
+@source "../../layouts/**/*.html";
+@source "../../content/**/*.html";
 
 html {
   background-color: #111111;
