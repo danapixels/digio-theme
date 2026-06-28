@@ -168,5 +168,8 @@ externalLinks = [
 ]
 ```
 
+## Font used
+Free and open source digi font can be downloaded at this [repo](https://github.com/danapixels/digi-ttf/blob/main/README.md).
+
 ## License
 [GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
